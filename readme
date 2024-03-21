@@ -1,0 +1,2 @@
+Default make target builds and produces the debugging output from the test sample;
+"make doc" produces an html document describing each of the parser states.
