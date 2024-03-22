@@ -13,36 +13,30 @@ int yylex(void);
 
 %printer { fprintf (yyo, "\"%s\"", $$); } TEXT MINUS UNDERSCORE 
 %define parse.trace
-%token MINUS UNDERSCORE TEXT
+%token TEXT MINUS UNDERSCORE
+%nonassoc TEXT MINUS UNDERSCORE
+%nonassoc REDUCE
 
 %%
 
-// Why don't the midline and underline rule reduce?
-
 accept:
-	| accept phrase
-	;
-
-phrase:
-	  text
-	| phrase text
+	| accept text %prec REDUCE
 	;
 
 text:
-	  literal
-	| formatted
+	  textual_element
+	| text textual_element
 	;
 
-literal: TEXT ;
-
-formatted:
-	  midline
+textual_element:
+	  TEXT
+	| midline
 	| underline
 	;
 
-midline: MINUS phrase MINUS ;
+midline: MINUS text MINUS %prec REDUCE ;
 
-underline: UNDERSCORE phrase UNDERSCORE ;
+underline: UNDERSCORE text UNDERSCORE %prec REDUCE ;
 
 %%
 

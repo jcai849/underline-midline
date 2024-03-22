@@ -1,6 +1,6 @@
 all: parser #doc
 	./parser <test.txt
-parser:
+parser: test.l test.y
 	lex test.l
 	yacc -d -x test.y
 	gcc lex.yy.c y.tab.c -o parser

@@ -8,7 +8,9 @@
 %option noyywrap
 
 %%
-"-"     { yylval = strdup(yytext); return MINUS; }
-"_"     { yylval = strdup(yytext); return UNDERSCORE; }
+
+"-"     { yylval = "-"; return MINUS; }
+"_"     { yylval = "_"; return UNDERSCORE; }
 [^-_]+  { yylval = strdup(yytext); return TEXT; }
+
 %%
